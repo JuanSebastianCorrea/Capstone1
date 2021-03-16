@@ -218,7 +218,6 @@ function renderFavorite(favRecipe) {
 	<div class="container-fluid px-0">
 	<div class="card-body mt-0">
 	<h5 class="card-title text-light">${favRecipe.name}</h5>
-	<p class="card-text text-light cuisine-type">${favRecipe.cuisine_type}</p>
 	<a href="${favRecipe.url}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
 	<form action="/favorites/remove" method="POST">
 		<input class="delete-favorite-input" name="remove-favorite-input" value="${favRecipe.uri}" hidden>
