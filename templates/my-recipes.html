@@ -1,0 +1,49 @@
+{% extends 'base.html'  %}
+{% block title %} The Cook's Nook - My Recipes{% endblock %}
+
+{% block content %}
+<input id="curr_user" hidden value="{{curr_user}}">
+<div class="container-fluid pb-5">
+    <div class="container own-form-box">
+    <form id="own-search-form" action="" class="mt-5 searchbar">
+        <input type="text" class="form-control mb-2" id="own-search-input" name="search-input" placeholder="Search Own Recipes" required>
+        
+    </form>
+   
+    </div>
+    
+    <div class="row" id="own-recipes">
+        {% for r in my_recipes %}
+        <div class="col-3 res-cols">
+            <div class="card own-card">
+            <a href="" class="d-flex justify-content-center">
+            <img class="own-result-img card-img-top img-fluid" src="{{r.image_url}}" alt="{{r.name}} photo">
+            </a>
+            <div class="container-fluid px-0">
+            <div class="card-body own-card-body">
+            <h5 class="card-title text-light mt-1">{{r.name}}</h5>
+            <p class="card-text text-light cuisine-type">{{r.cuisine_type}}</p>
+            {% if r.ingredients %}
+            <h5 class="text-light ingredients-title">Ingredients:</h5>
+            <p class="card-text text-light ingredients">{{r.ingredients}}</p>
+            {% endif %}
+            <a href="/my_recipes/{{r.uri}}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
+            <form action="/my_recipes/delete" method="POST">
+                <input class="delete-my-recipe-input" name="delete-my-recipe-input" value="{{r.uri}}" hidden>
+                <button class="btn btn-sm text-light remove-btn mb-2" type="submit">Delete Recipe <i class="fas fa-trash"></i></button>
+            </form>
+            </div>
+            </div>
+           </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+</div>
+
+    
+
+  
+   
+{% endblock %}

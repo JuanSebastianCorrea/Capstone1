@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} The Cook's Nook - Edit {{recipe.name}}{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid pb-5">
+    <div class="container form-box">
+        <form method="POST" action="/my_recipes/{{recipe.uri}}/edit">
+            {{ form.hidden_tag() }}
+            <h2 class="text-light text-center">Edit Recipe</h2>
+            {% for field in form if field.widget.input_type != 'hidden' %}
+              {% for error in field.errors %}
+                <span class="text-warning">{{ error }}</span>
+              {% endfor %}
+              {{ field(placeholder=field.label.text, class="form-control mb-1") }}
+            {% endfor %}
+           
+            <button class="btn btn-primary btn-block btn-lg onboarding-btn" type="submit">Save</button>
+          </form>
+   
+    </div>
+    
+</div>
+
+    
+
+  
+   
+{% endblock %}

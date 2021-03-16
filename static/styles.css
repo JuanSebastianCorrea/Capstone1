@@ -1,0 +1,367 @@
+.main-container {
+	height: 100%;
+	background-image: url(../static/images/kevin-doran-m1meZgcUYEk-unsplash.jpg);
+	background-size: cover;
+}
+
+.navbar {
+	background-color: rgb(90, 156, 117);
+}
+
+.navbar-brand {
+	color: rgb(211, 253, 231);
+}
+
+.navbar-brand:hover {
+	color: rgb(211, 253, 231);
+}
+
+.form-box {
+	position: relative;
+	top: 260px;
+	display: flex;
+	justify-content: center;
+}
+
+.own-form-box {
+	position: relative;
+	top: -37px;
+	display: flex;
+	justify-content: center;
+	z-index: 2000;
+}
+.favorites-form-box {
+	position: relative;
+	top: -37px;
+	display: flex;
+	justify-content: center;
+	z-index: 2000;
+}
+
+input[type="text"],
+textarea {
+	opacity: .8;
+}
+input[type="password"],
+textarea {
+	opacity: .8;
+}
+
+.searchbar {
+	position: absolute;
+}
+
+.onboarding-btn {
+	background-color: rgb(90, 156, 117);
+	border: none;
+	width: 100%;
+}
+
+.onboarding-btn:hover {
+	background-color: rgb(67, 117, 88);
+}
+
+.search-btn {
+	background-color: rgb(90, 156, 117);
+	border: none;
+	width: 100%;
+}
+
+.search-btn:hover {
+	background-color: rgb(67, 117, 88);
+}
+
+.recipe-btn {
+	background-color: rgba(255, 212, 172, 0.7);
+	font-weight: 300;
+	outline: none;
+	width: 100%;
+}
+.recipe-btn:hover {
+	background-color: rgb(212, 175, 141, 0.7);
+}
+
+.save-recipe-btn {
+	background-color: rgb(175, 125, 92, 0.7);
+	font-weight: 300;
+	outline: none;
+	width: 100%;
+}
+.save-recipe-btn:hover {
+	background-color: rgb(146, 102, 72, 0.7);
+}
+
+.remove-btn {
+	background-color: rgba(255, 166, 107, 0.7);
+	font-weight: 300;
+	outline: none;
+	width: 100%;
+}
+
+.remove-btn:hover {
+	background-color: rgba(255, 140, 87, 0.7);
+}
+
+.more-btn {
+	background-color: rgb(90, 156, 117);
+	position: absolute;
+	bottom: 0px;
+	margin-bottom: 0px;
+	text-align: center;
+}
+.more-btn:hover {
+	background-color: rgb(67, 117, 88);
+}
+
+.edit-btn {
+	background-color: rgba(255, 142, 107, 0.7);
+	font-weight: 300;
+	outline: none;
+	/* display: flex;
+	align-self: end; */
+	/* width: 100px; */
+}
+.edit-btn:hover {
+	background-color: rgba(252, 121, 81, 0.7);
+}
+
+.spacer-bottom {
+	/* height: 25px; */
+	background-color: rgb(252, 240, 222);
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.dropdown-menu {
+	background-color: rgb(218, 228, 224);
+	margin-bottom: 10px;
+}
+
+.dropdown {
+	margin-right: 100px;
+}
+
+#search-results {
+	position: relative;
+	top: 631px;
+	background-color: rgb(252, 240, 222);
+}
+
+.favorited-text {
+	color: rgba(123, 214, 161, 0.85);
+	width: 100%;
+	font-size: 18px;
+	text-decoration: none;
+}
+
+.favorited-text:hover {
+	color: rgb(171, 241, 200);
+}
+
+#own-recipes {
+	position: relative;
+	top: 53px;
+	padding-top: 100px;
+	padding-bottom: 70px;
+	background-color: rgba(252, 240, 222, 0.3);
+	height: 92vh;
+}
+
+.ingredients {
+	font-size: 12px;
+	font-weight: 300;
+}
+
+.ingredients-title {
+	font-size: 12px;
+}
+
+.card {
+	/* margin-bottom: 30px; */
+	margin-top: 0px;
+	padding: 10px;
+	height: 500px;
+	background-image: url(../static/images/patrick-fore-bg20VZvrfvY-unsplash.jpg);
+	background-size: cover;
+	background-color: rgba(99, 172, 130, 0.747);
+}
+
+.card.own-full-card {
+	background-image: none;
+}
+.card-body {
+	padding: 0px;
+}
+
+.card.fav-card {
+	height: 450px;
+}
+
+.card-title {
+	font-size: 14px;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.res-cols {
+	padding-top: 0px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	height: auto;
+}
+
+.cuisine-type {
+	font-size: 12px;
+	font-weight: 300;
+}
+
+#favorites {
+	position: relative;
+	top: 55px;
+	padding-top: 100px;
+	padding-bottom: 70px;
+	background-color: rgba(252, 240, 222, 0.3);
+	height: 92vh;
+}
+
+/* .result-img {
+	max-height: 260px;
+	min-height: 85px;
+} */
+
+.card.own-card {
+	height: 450px;
+	padding-bottom: 200px;
+}
+
+#own-recipe {
+	width: 60vw;
+	position: relative;
+	top: 150px;
+}
+
+.full-recipe-title {
+	font-size: 20px;
+	font-weight: 400;
+}
+.own-card-body {
+	margin-top: 10px;
+}
+@media (max-width: 1300px) {
+	.card {
+		height: 400px;
+	}
+	.fav-card {
+		height: 350px;
+	}
+}
+
+@media (max-width: 965px) {
+	.card.fav-card {
+		height: 400px;
+	}
+
+	.card.own-card {
+		height: 400px;
+	}
+}
+
+@media (max-width: 855px) {
+	.recipe-btn {
+		padding: 2px;
+	}
+	.save-recipe-btn {
+		padding: 2px;
+	}
+
+	.cuisine-type {
+		font-size: 10px;
+	}
+	.fav-card {
+		height: 350px;
+	}
+}
+@media (max-width: 770px) {
+	.card {
+		height: 500px;
+	}
+
+	.card.fav-card {
+		height: 450px;
+	}
+
+	.card.own-card {
+		height: 450px;
+	}
+
+	.ingredients-title {
+		padding-left: 25px;
+		font-size: 14px;
+	}
+
+	.ingredients {
+		padding-left: 25px;
+		font-size: 14px;
+	}
+
+	.cuisine-type {
+		font-size: 14px;
+	}
+
+	.card-title {
+		padding-left: 25px;
+		font-size: 16px;
+	}
+
+	.cuisine-type {
+		padding-left: 25px;
+	}
+
+	.res-cols {
+		width: 340px;
+	}
+	.result-img {
+		width: 250px;
+		margin-bottom: 15px;
+	}
+}
+
+@media (max-width: 720px) {
+	.card {
+		height: 400px;
+	}
+
+	.fav-card {
+		height: 350px;
+	}
+	.res-cols {
+		width: 320px;
+	}
+
+	.result-img {
+		width: 200px;
+		margin-bottom: 15px;
+	}
+}
+
+@media (max-width: 675px) {
+	.res-cols {
+		width: 280px;
+	}
+
+	.result-img {
+		width: 170px;
+		margin-bottom: 15px;
+	}
+}
+@media (max-width: 280px) {
+	.res-cols {
+		padding-left: 25px;
+	}
+	.card-title {
+		padding-left: 10px;
+		font-size: 14px;
+	}
+}

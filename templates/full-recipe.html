@@ -1,0 +1,54 @@
+{% extends 'base.html'  %}
+{% block title %} The Cook's Nook - {{my_recipe.name}} {% endblock %}
+
+{% block content %}
+<div class="container-fluid pb-5 d-flex justify-content-center">
+    
+    
+    <div class="row" id="own-recipe">
+        <div class="card own-full-card mb-3">
+            <div class="row">
+              <div class="col-5">
+                <img src="{{my_recipe.image_url}}" alt="..." class="img-fluid">
+                    
+              </div>
+              <div class="col-7">
+                <div class="container">
+                    <h5 class="card-title text-light full-recipe-title d-inline">{{my_recipe.name}}</h5>
+                    <a href="/my_recipes/{{my_recipe.uri}}/edit" class="btn btn-sm edit-btn text-light mt-0 d-inline text-center float-end rounded-circle"><i class="fas fa-pencil-alt"></i></a>
+                    <h6 class="mt-4 text-light">Ingredients:</h6>
+                    <ul>
+                        {% for i in ingredients_list%}
+                        <li class="text-light">{{i}}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    </div>
+              </div>
+            </div>
+              <div class="row">
+              <div class="col-xxl-8">
+                <div class="card-body mt-4">
+                  
+                  <ol>
+                      {% for s in steps%}
+                      <li class="text-light">{{s}}</li>
+                      {% endfor %}
+                  </ol>
+                  
+                 
+                </div>
+              </div>
+            </div>
+            
+          </div>
+    </div>
+    
+    
+</div>
+
+    
+
+  
+   
+{% endblock %}
