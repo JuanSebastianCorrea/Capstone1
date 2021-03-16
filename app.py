@@ -15,9 +15,9 @@ BASE_URL = 'https://api.edamam.com/search?'
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///recipes_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///recipes_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = "oh-so-secret"
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'lindalindatonina')
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
