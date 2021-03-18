@@ -226,10 +226,9 @@ textarea {
 	height: 92vh;
 }
 
-/* .result-img {
-	max-height: 260px;
-	min-height: 85px;
-} */
+.own-result-img {
+	min-height: 80px;
+}
 
 .card.own-card {
 	height: 450px;

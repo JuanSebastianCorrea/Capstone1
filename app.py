@@ -132,28 +132,27 @@ def home():
 
 @app.route('/favorites')
 def view_favorites():
-    # print(g.user)
-    # import pdb
-    # pdb.set_trace()
+    """View user's favorite/saved recipes"""
+
     curr_user = User.query.get_or_404(g.user.id)
     favorites = curr_user.favorites
-    # raise
-
 
     return render_template('favorites.html', favorites=favorites)
 
 @app.route('/favorites/add', methods=["POST"])
 def add_favorite():
+    """Add/Save recipe to user's Favorites page"""
+
     recipe_uri = request.form["add-favorite-input"]
     resp = requests.get(f'{BASE_URL}', params= {'r' : recipe_uri, 'app_id' : API_ID, 'app_key' : API_KEY})
     recipe_data = resp.json()
-    # raise
+    
     recipe_exists = Recipe.query.get(recipe_uri)
     if recipe_exists == None:
         db_recipe = Recipe(uri=recipe_data[0]['uri'], name=recipe_data[0]['label'], image_url=recipe_data[0]['image'], url=recipe_data[0]['url'])
         db.session.add(db_recipe)
         db.session.commit()
-    # raise
+    
     new_fav = FavoriteRecipe(user_id=session[CURR_USER_KEY], recipe_uri=recipe_uri)
     db.session.add(new_fav)
     db.session.commit()
@@ -162,6 +161,7 @@ def add_favorite():
 
 @app.route('/favorites/remove', methods=["POST"])
 def remove_favorite():
+    """Remove recipe from user's Favorites page"""
 
     curr_user = User.query.get_or_404(g.user.id)
     recipe_uri = request.form["remove-favorite-input"]
@@ -176,6 +176,7 @@ def remove_favorite():
 #################### My Recipes ###############################
 @app.route('/my_recipes')
 def my_recipes():
+    """View user's own recipes page"""
 
     my_recipes = Recipe.query.filter((Recipe.user_id==g.user.id)&(Recipe.own_recipe==True)).all()
 
@@ -183,13 +184,16 @@ def my_recipes():
 
 @app.route('/my_recipes/add_recipe', methods=["GET", "POST"])
 def add_recipe():
+    """Add new own recipe for current user.
+       Get and Submit recipe form.
+    """
 
     user_id = g.user.id
     
     form = AddRecipe(user_id=user_id)
     
     if form.validate_on_submit():
-        # raise
+        
         new_recipe = Recipe(uri=form.name.data,
                             name=form.name.data,
                             image_url=form.image_url.data,
@@ -210,6 +214,7 @@ def add_recipe():
 
 @app.route('/my_recipes/delete', methods=["POST"])
 def delete_my_recipe():
+    """Delete user's own recipe"""
 
     curr_user = User.query.get_or_404(g.user.id)
     recipe_uri = request.form["delete-my-recipe-input"]
@@ -221,6 +226,7 @@ def delete_my_recipe():
 
 @app.route('/my_recipes/<recipe_uri>')
 def view_recipe(recipe_uri):
+    """Display full recipe for user's own recipe"""
 
     my_recipe = Recipe.query.filter((Recipe.user_id==g.user.id)&(Recipe.uri==recipe_uri)).first()
     ingredients_list = my_recipe.ingredients.split(',')
@@ -231,6 +237,9 @@ def view_recipe(recipe_uri):
 
 @app.route('/my_recipes/<recipe_uri>/edit', methods=["GET", "POST"])
 def edit_my_recipe(recipe_uri):
+    """Edit user's own recipe.
+       Get and submit edit form
+    """
 
     user_id = g.user.id
     recipe = Recipe.query.get_or_404(recipe_uri)
@@ -254,6 +263,8 @@ def edit_my_recipe(recipe_uri):
 ###############################################################
 @app.route('/get_favorites_uri')
 def get_user_favorite_recipes():
+    """Makes a list of user saved recipes to mark them as 'Favorites' in search results"""
+
     curr_user = User.query.get_or_404(g.user.id)
     saved_recipes = curr_user.favorites
     saved_recipes_uris = [r.uri for r in saved_recipes]
@@ -261,6 +272,7 @@ def get_user_favorite_recipes():
 
 @app.route('/search_api')
 def search_api():
+    """Search for recipes"""
 
     searchterm = request.args["searchterm"]
     frm = request.args["frm"]
@@ -271,21 +283,27 @@ def search_api():
 
     return jsonify(recipes_list)
 
+
+
 @app.route('/get_favorites/<searchterm>')
 def get_favorites(searchterm):
+    """Search Favorites searchbar. 
+        Display favorited recipes that match searchterm real-time.
+    """
 
     curr_user = User.query.get_or_404(g.user.id)
     favorites = curr_user.favorites
     favorites_uri = [r.uri for r in favorites]
-    # import pdb
-    # pdb.set_trace()
+  
     serialized_favs = [f.serialize() for f in Recipe.query.filter((Recipe.uri.in_(favorites_uri)) & (Recipe.name.ilike(f"%{searchterm}%"))).all()]
                         
-    
     return jsonify(serialized_favs)
 
 @app.route('/get_favorites')
 def get_all_favorites():
+    """Search Favorites searchbar. 
+       Display all favorited recipes when searchbar is blank.
+    """
 
     curr_user = User.query.get_or_404(g.user.id)
     favorites = curr_user.favorites
@@ -296,6 +314,9 @@ def get_all_favorites():
 
 @app.route('/get_own/<searchterm>')
 def get_own(searchterm):
+    """Search Own Recipes searchbar. 
+        Display own recipes that match searchterm real-time.
+    """
 
     curr_user = User.query.get_or_404(g.user.id)
     own_recipes = Recipe.query.filter((Recipe.user_id == curr_user.id) & (Recipe.own_recipe == True)).all()
@@ -311,7 +332,9 @@ def get_own(searchterm):
 
 @app.route('/get_own')
 def get_all_own():
-
+    """Search Own Recipes searchbar. 
+       Display all own recipes when searchbar is blank.
+    """
     curr_user = User.query.get_or_404(g.user.id)
     own_recipes = Recipe.query.filter((Recipe.user_id == curr_user.id) & (Recipe.own_recipe == True)).all()
     serialized_own = [o.serialize() for o in own_recipes]
