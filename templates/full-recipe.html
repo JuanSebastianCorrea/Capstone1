@@ -2,33 +2,37 @@
 {% block title %} The Cook's Nook - {{my_recipe.name}} {% endblock %}
 
 {% block content %}
-<div class="container-fluid pb-5 d-flex justify-content-center">
+
+<!-- <div class="container-fluid pb-5 d-flex justify-content-center full-recipe-card-container">
     
     
     <div class="row" id="own-recipe">
-        <div class="card own-full-card mb-3">
-            <div class="row">
+        <div class="card own-full-card">
+            <div class="row h-50">
               <div class="col-5">
-                <img src="{{my_recipe.image_url}}" alt="..." class="img-fluid">
+                <img src="{{my_recipe.image_url}}" alt="..." class="img-fluid full-recipe-img">
                     
               </div>
               <div class="col-7">
-                <div class="container">
+                <div class="container-fluid">
                     <h5 class="card-title text-light full-recipe-title d-inline">{{my_recipe.name}}</h5>
                     <a href="/my_recipes/{{my_recipe.uri}}/edit" class="btn btn-sm edit-btn text-light mt-0 d-inline text-center float-end rounded-circle"><i class="fas fa-pencil-alt"></i></a>
-                    <h6 class="mt-4 text-light">Ingredients:</h6>
-                    <ul>
+                    <h6 class="mt-2 text-light">Ingredients:</h6>
+
+                    <div class="container-fluid ingredients-container overflow-scroll">
+                    <ul class="">
                         {% for i in ingredients_list%}
                         <li class="text-light">{{i}}</li>
                         {% endfor %}
                     </ul>
+                    </div>
                     
                     </div>
               </div>
             </div>
-              <div class="row">
-              <div class="col-xxl-8">
-                <div class="card-body mt-4">
+              <div class="row h-50">
+              <div class="col-xxl-8 h-100 overflow-scroll">
+                <div class="card-body container-fluid full-instructions-container">
                   
                   <ol>
                       {% for s in steps%}
@@ -45,9 +49,56 @@
     </div>
     
     
-</div>
+</div> 
+<!-- <div class="container-fluid pb-5 d-flex justify-content-center full-recipe-card-container"> -->
+<div class="wrapper overflow-scroll">
 
+  <!-- <div class=""> -->
+    <img class="full-recipe-img img-fluid" src="{{my_recipe.image_url}}" alt="">
+  <!-- </div> -->
+
+
+  <div class="full-recipe-title">
+    <h5 class="text-light full-recipe-title d-inline">{{my_recipe.name}}</h5>
+    <div class="container full-recipe-cook-time-servings mt-4">
+      <p>Prep:</p>
+      <p>Cook:</p>
+      <p>Additional:</p>
+      <p>Total:</p>
+      <p class="">Servings:</p>
+    </div>
+  </div>
+
+  <div class="full-recipe-btn">
+    <a href="/my_recipes/{{my_recipe.uri}}/edit" class="btn btn-sm edit-btn text-light mt-0 d-inline text-center float-end rounded-circle"><i class="fas fa-pencil-alt"></i></a>
+  </div>
+
+
+  <div class="full-recipe-instructions">
+    <h6 class="mt-2 text-light text-center">Directions</h6>
+    <ol>
+      {% for s in steps%}
+      <li class="text-light">{{s}}</li>
+      {% endfor %}
+  </ol>
+  </div>
+ 
+
+  <div class="full-recipe-ingredients">
+    <h6 class="mt-2 text-light">Ingredients</h6>
     
+      <ul class="">
+          {% for i in ingredients_list%}
+          <li class="text-light">{{i}}</li>
+          {% endfor %}
+      </ul>
+      
+  </div>
+  
+  <div class="container scroll-sign"><i class="far fa-hand-pointer text-light"></i></div>
+
+
+</div>     
 
   
    

@@ -261,27 +261,45 @@ def edit_my_recipe(recipe_uri):
 
 
 ###############################################################
-@app.route('/get_favorites_uri')
-def get_user_favorite_recipes():
-    """Makes a list of user saved recipes to mark them as 'Favorites' in search results"""
+# @app.route('/get_favorites_uri')
+# def get_user_favorite_recipes():
+#     """Makes a list of user saved recipes to mark them as 'Favorites' in search results"""
 
-    curr_user = User.query.get_or_404(g.user.id)
-    saved_recipes = curr_user.favorites
-    saved_recipes_uris = [r.uri for r in saved_recipes]
-    return jsonify(uris=saved_recipes_uris)
+#     curr_user = User.query.get_or_404(g.user.id)
+#     saved_recipes = curr_user.favorites
+#     saved_recipes_uris = [r.uri for r in saved_recipes]
+#     return jsonify(uris=saved_recipes_uris)
 
 @app.route('/search_api')
 def search_api():
-    """Search for recipes"""
+    """Search for recipes"""    
 
-    searchterm = request.args["searchterm"]
-    frm = request.args["frm"]
-    to = request.args["to"]
-    resp = requests.get(f"{BASE_URL}q={searchterm}&app_id={API_ID}&app_key={API_KEY}&from={frm}&to={to}")
+    # FUNCTION get the current user's saved recipes
+    if g.user:
 
-    recipes_list = resp.json()["hits"]
+        curr_user = User.query.get_or_404(g.user.id)
+        saved_recipes = curr_user.favorites
+        saved_recipes_uris = [r.uri for r in saved_recipes]
 
-    return jsonify(recipes_list)
+        searchterm = request.args["searchterm"]
+        frm = request.args["frm"]
+        to = request.args["to"]
+
+        # FUNCTION to make the request to Edamam's API
+        resp = requests.get(f"{BASE_URL}q={searchterm}&app_id={API_ID}&app_key={API_KEY}&from={frm}&to={to}")
+
+        recipes_list = []
+        # FUNCTION to handle the response
+        for item in resp.json()["hits"]:
+            # import pdb
+            # pdb.set_trace()
+
+            if item.get("recipe").get("uri") in saved_recipes_uris:
+                item["bookmarked"] = True
+            recipes_list.append(item)
+            print(item.get("bookmarked"))
+    
+        return jsonify(recipes_list)
 
 
 

@@ -3,8 +3,8 @@
 
 {% block content %}
 <input id="curr_user" hidden value="{{curr_user}}">
-<div class="container-fluid pb-5">
-    <div class="container own-form-box">
+<div class="container-fluid mx-0 p-0">
+    <div class="container own-form-box fixed-top">
     <form id="own-search-form" action="" class="mt-5 searchbar">
         <input type="text" class="form-control mb-2" id="own-search-input" name="search-input" placeholder="Search Own Recipes" required>
         
@@ -12,20 +12,20 @@
    
     </div>
     
-    <div class="row" id="own-recipes">
+    <div class="row overflow-scroll container-fluid m-0" id="own-recipes">
         {% for r in my_recipes %}
         <div class="col-3 res-cols">
             <div class="card own-card">
             <a href="" class="d-flex justify-content-center">
             <img class="own-result-img card-img-top img-fluid" src="{{r.image_url}}" alt="{{r.name}} photo">
             </a>
-            <div class="container-fluid px-0">
+            <div class="container-fluid h-50 px-0">
             <div class="card-body own-card-body">
             <h5 class="card-title text-light mt-1">{{r.name}}</h5>
             <p class="card-text text-light cuisine-type">{{r.cuisine_type}}</p>
             {% if r.ingredients %}
             <h5 class="text-light ingredients-title">Ingredients:</h5>
-            <p class="card-text text-light ingredients">{{r.ingredients}}</p>
+            <p class="card-text text-light ingredients overflow-scroll">{{r.ingredients}}</p>
             {% endif %}
             <a href="/my_recipes/{{r.uri}}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
             <form action="/my_recipes/delete" method="POST">

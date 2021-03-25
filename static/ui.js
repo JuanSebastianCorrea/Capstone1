@@ -43,6 +43,7 @@ $('.more-btn').on('click', async function(e) {
 
 async function renderResults(recipes_arr) {
 	for (r of recipes_arr) {
+		console.log(r);
 		if ($('#curr_user').val() === 'None') {
 			$searchResults.append(`<div class="col-3 res-cols">
 	                                <div class="card">
@@ -62,10 +63,10 @@ async function renderResults(recipes_arr) {
 	                                </div>
 	                               </div>`);
 		} else {
-			let resp = await axios.get('/get_favorites_uri');
-			let SavedRecipes = resp.data.uris;
+			// let resp = await axios.get('/get_favorites_uri');
+			// let SavedRecipes = resp.data.uris;
 			// check if r.recipe.uri in USER_FAVORITES to mark it accordingly
-			if (SavedRecipes.includes(r.recipe.uri) === false) {
+			if (r.bookmarked === false) {
 				$searchResults.append(`<div class="col-3 res-cols">
 				<div class="card">
 				<a href="${r.recipe.url}" class="d-flex justify-content-center">
@@ -201,3 +202,11 @@ function renderOwn(ownRecipe) {
    </div>
 </div>`);
 }
+
+$('.wrapper').on('scroll', () => {
+	$('.scroll-sign').detach();
+});
+
+setTimeout(() => {
+	$('.scroll-sign').fadeOut();
+}, 4000);

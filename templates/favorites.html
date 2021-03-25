@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="container-fluid pb-5">
+<div class="container-fluid">
     <div class="container favorites-form-box">
         <form id="favorites-search-form" action="" class="mt-5 searchbar">
             <input type="text" class="form-control mb-2" id="favorites-search-input" name="favorites-search-input" placeholder="Search Favorites" required>
@@ -12,7 +12,7 @@
         </form>
        
     </div>
-    <div class="row px-3 overflow-scroll" id="favorites">
+    <div class="row px-3 overflow-scroll h-100" id="favorites">
         {% for f in favorites %}
              <div class="col-3 res-cols">
                 <div class="card fav-card">
