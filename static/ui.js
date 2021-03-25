@@ -24,6 +24,8 @@ $searchForm.on('submit', async function(e) {
 	renderResults(res.data);
 
 	$('.more-btn').show();
+	// How to auto-scroll to new results?????????
+	$searchResults[0].scrollIntoView();
 });
 
 $('.more-btn').on('click', async function(e) {

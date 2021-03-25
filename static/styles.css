@@ -26,6 +26,10 @@ body {
 	flex-grow: 0;
 }
 
+.alert {
+	position: absolute;
+	top: 150px;
+}
 /* Home  */
 
 .form-box {
@@ -320,7 +324,6 @@ textarea {
 	justify-self: center;
 }
 .full-recipe-ingredients {
-	align-self: ;
 	height: 90%;
 	grid-row: 2/3;
 	grid-column: 3/5;
@@ -385,15 +388,6 @@ textarea {
 	.fav-card {
 		height: 350px;
 	}
-
-	/* .full-recipe-ingredients {
-		align-self: start;
-		height: 80%;
-	}
-
-	.full-recipe-instructions {
-		align-self: end;
-	} */
 }
 
 @media (max-width: 965px) {
@@ -419,12 +413,6 @@ textarea {
 	.fav-card {
 		height: 350px;
 	}
-
-	/* .full-recipe-instructions {
-		align-self: start;
-		margin-top: 10px;
-		height: 90%;
-	} */
 }
 @media (max-width: 770px) {
 	.card {
@@ -469,10 +457,6 @@ textarea {
 		width: 250px;
 		margin-bottom: 15px;
 	}
-
-	/* .full-recipe-img {
-		width: 175px;
-	} */
 }
 
 @media (max-width: 720px) {
@@ -490,9 +474,6 @@ textarea {
 	.result-img {
 		width: 200px;
 	}
-	/* .full-recipe-img {
-		width: 160px;
-	} */
 }
 
 @media (max-width: 675px) {
@@ -514,19 +495,6 @@ textarea {
 		padding-top: 10px;
 	}
 
-	/* .full-recipe-btn {
-		align-self: start;
-	}
-
-	.full-recipe-ingredients {
-		align-self: start;
-		width: 100%;
-		height: 80%;
-	}
-	.full-recipe-instructions {
-		align-self: start;
-	} */
-
 	.full-recipe-title {
 		font-size: 25px;
 	}
@@ -544,10 +512,6 @@ textarea {
 		top: 0;
 		margin-left: 0;
 	}
-
-	/* .full-recipe-instructions {
-		height: 80%;
-	} */
 }
 
 @media (max-width: 470px) {
@@ -599,18 +563,9 @@ textarea {
 		width: 180px;
 	}
 
-	/* .wrapper {
-		height: 545px;
-	}
-
 	.full-recipe-ingredients {
-		height: 100%;
+		justify-self: start;
 	}
-
-	.full-recipe-instructions {
-		height: 60%;
-		margin-top: 50px;
-	} */
 }
 
 @media (max-width: 320px) {
@@ -619,13 +574,6 @@ textarea {
 		margin-left: 70px;
 		width: 180px;
 	}
-	/* .wrapper {
-		height: 445px;
-	}
-
-	.full-recipe-instructions {
-		height: 27%;
-	} */
 }
 
 @media (max-width: 280px) {
@@ -636,15 +584,4 @@ textarea {
 		padding-left: 10px;
 		font-size: 14px;
 	}
-	/* .wrapper {
-		height: 530px;
-	}
-
-	.full-recipe-ingredients {
-		height: 70%;
-	}
-
-	.full-recipe-instructions {
-		height: 40%;
-	} */
 }

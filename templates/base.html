@@ -43,9 +43,9 @@
 
   
 
-  <div class="container-fluid my-0 p-0 main-container">
+  <div class="container-fluid p-0 main-container">
     {% for category, msg in get_flashed_messages(with_categories=true) %}
-    <div class="alert alert-{{category}} text-center">{{ msg }}</div>
+    <div class="alert alert-{{category}} text-center w-100">{{ msg }}</div>
     {% endfor %}
     
     {% block content %}
