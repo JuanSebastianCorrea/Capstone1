@@ -220,6 +220,7 @@ textarea {
 
 .card.fav-card {
 	height: 450px;
+	padding-bottom: auto;
 }
 
 .card-title {
@@ -245,9 +246,8 @@ textarea {
 
 #favorites {
 	position: relative;
-	/* top: 45px; */
 	padding-top: 100px;
-	padding-bottom: 70px;
+	padding-bottom: auto;
 	background-color: rgba(252, 240, 222, 0.3);
 	height: 100vh;
 }
@@ -258,7 +258,8 @@ textarea {
 	top: 180px;
 }
 
-.own-result-img {
+.own-result-img,
+.result-img {
 	max-width: 200px;
 	min-height: 80px;
 }
