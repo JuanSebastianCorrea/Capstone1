@@ -47,7 +47,7 @@ body {
 	z-index: 2000;
 }
 .favorites-form-box {
-	position: relative;
+	/* position: relative; */
 	top: -37px;
 	display: flex;
 	justify-content: center;

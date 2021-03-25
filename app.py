@@ -6,6 +6,7 @@ from sqlalchemy.exc import IntegrityError
 
 from forms import UserSignupForm, LoginForm, AddRecipe
 from models import db, connect_db, User, Recipe, FavoriteRecipe
+from search_service import search
 
 CURR_USER_KEY = "curr_user"
 
@@ -273,35 +274,13 @@ def edit_my_recipe(recipe_uri):
 @app.route('/search_api')
 def search_api():
     """Search for recipes"""    
+    searchterm = request.args["searchterm"]
+    frm = request.args["frm"]
+    to = request.args["to"]
 
-    # FUNCTION get the current user's saved recipes
-    if g.user:
-
-        curr_user = User.query.get_or_404(g.user.id)
-        saved_recipes = curr_user.favorites
-        saved_recipes_uris = [r.uri for r in saved_recipes]
-
-        searchterm = request.args["searchterm"]
-        frm = request.args["frm"]
-        to = request.args["to"]
-
-        # FUNCTION to make the request to Edamam's API
-        resp = requests.get(f"{BASE_URL}q={searchterm}&app_id={API_ID}&app_key={API_KEY}&from={frm}&to={to}")
-
-        recipes_list = []
-        # FUNCTION to handle the response
-        for item in resp.json()["hits"]:
-            # import pdb
-            # pdb.set_trace()
-
-            if item.get("recipe").get("uri") in saved_recipes_uris:
-                item["bookmarked"] = True
-            recipes_list.append(item)
-            print(item.get("bookmarked"))
-    
-        return jsonify(recipes_list)
-
-
+    user_id = g.user.id if g.user else None
+    recipes_list = search(user_id, searchterm, frm, to)
+    return jsonify(recipes_list)
 
 @app.route('/get_favorites/<searchterm>')
 def get_favorites(searchterm):
