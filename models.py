@@ -68,7 +68,7 @@ class Recipe(db.Model):
 
     uri = db.Column(db.Text, primary_key=True)
     name = db.Column(db.Text, nullable=False, unique=True)
-    image_url = db.Column(db.Text, nullable=False, unique=True)
+    image_url = db.Column(db.Text, nullable=False)
     cuisine_type = db.Column(db.Text, nullable=True)
 
     # ingredients nullable true for now

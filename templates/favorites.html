@@ -7,7 +7,6 @@
     <div class="container favorites-form-box position-fixed">
         <form id="favorites-search-form" action="" class="mt-5 searchbar">
             <input type="text" class="form-control mb-2" id="favorites-search-input" name="favorites-search-input" placeholder="Search Favorites" required>
-            <!-- <button type="submit" class="btn search-btn text-light">Find</button> -->
             
         </form>
        
@@ -16,12 +15,14 @@
         {% for f in favorites %}
              <div class="col-3 res-cols">
                 <div class="card fav-card">
+            
                 <a href="{{f.url}}" class="d-flex justify-content-center">
                 <img class="result-img card-img-top img-fluid" src="{{f.image_url}}" alt="{{f.name}} photo">
                 </a>
+           
                 <div class="container-fluid px-0">
                 <div class="card-body mt-0">
-                <h5 class="card-title text-light">{{f.name}}</h5>
+                <h5 class="card-title text-light text-center">{{f.name}}</h5>
                 
                 <a href="{{f.url}}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
                 <form action="/favorites/remove" method="POST">

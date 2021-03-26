@@ -55,8 +55,9 @@ async function renderResults(recipes_arr) {
 	                                </a>
 	                                <div class="container-fluid p-0">
 	                                <div class="card-body container-fluid">
-	                                <h5 class="card-title text-light my-1 mr-0 w-100">${r.recipe.label}</h5>
-	                                <p class="card-text text-light cuisine-type">${r.recipe.cuisineType === undefined
+	                                <h5 class="card-title text-light my-1 text-center">${r.recipe.label}</h5>
+	                                <p class="card-text text-light text-center cuisine-type">${r.recipe.cuisineType ===
+									undefined
 										? 'world'
 										: r.recipe.cuisineType}</p>
 	                                <a href="${r.recipe.url}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
@@ -76,8 +77,8 @@ async function renderResults(recipes_arr) {
 				</a>
 				<div class="container-fluid p-0">
 				<div class="card-body container-fluid">
-				<h5 class="card-title text-light my-1 mr-0 w-100">${r.recipe.label}</h5>
-				<p class="card-text text-light cuisine-type">${r.recipe.cuisineType === undefined
+				<h5 class="card-title text-light my-1 text-center">${r.recipe.label}</h5>
+				<p class="card-text text-light text-center cuisine-type">${r.recipe.cuisineType === undefined
 					? 'world'
 					: r.recipe.cuisineType}</p>
 				<a href="${r.recipe.url}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
@@ -98,8 +99,8 @@ async function renderResults(recipes_arr) {
 				</a>
 				<div class="container-fluid p-0">
 				<div class="card-body container-fluid">
-				<h5 class="card-title text-light my-1 mr-0 w-100">${r.recipe.label}</h5>
-				<p class="card-text text-light cuisine-type">${r.recipe.cuisineType === undefined
+				<h5 class="card-title text-light my-1 text-center">${r.recipe.label}</h5>
+				<p class="card-text text-light text-center cuisine-type">${r.recipe.cuisineType === undefined
 					? 'world'
 					: r.recipe.cuisineType}</p>
 				<a href="${r.recipe.url}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>

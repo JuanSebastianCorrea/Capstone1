@@ -1,3 +1,4 @@
+/* GENERAL STYLES */
 body {
 	/* background-image: url(../static/images/kevin-doran-m1meZgcUYEk-unsplash.jpg);
 	background-size: cover; */
@@ -9,6 +10,34 @@ body {
 	background-size: cover;
 }
 
+input[type="text"],
+textarea {
+	opacity: .8;
+}
+input[type="password"],
+textarea {
+	opacity: .8;
+}
+
+.spacer-bottom {
+	/* height: 25px; */
+	background-color: rgb(252, 240, 222);
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.dropdown-menu {
+	background-color: rgb(218, 228, 224);
+	margin-bottom: 10px;
+}
+
+.dropdown {
+	margin-right: 100px;
+}
+
+/* NAVBAR */
 .navbar {
 	background-color: rgb(90, 156, 117);
 }
@@ -26,47 +55,13 @@ body {
 	flex-grow: 0;
 }
 
+/* FLASH MESSAGES */
 .alert {
 	position: absolute;
 	top: 150px;
 }
-/* Home  */
 
-.form-box {
-	position: relative;
-	top: 235px;
-	display: flex;
-	justify-content: center;
-	margin-bottom: 0;
-}
-
-.own-form-box {
-	top: -36px;
-	display: flex;
-	justify-content: center;
-	z-index: 2000;
-}
-.favorites-form-box {
-	/* position: relative; */
-	top: -37px;
-	display: flex;
-	justify-content: center;
-	z-index: 2000;
-}
-
-input[type="text"],
-textarea {
-	opacity: .8;
-}
-input[type="password"],
-textarea {
-	opacity: .8;
-}
-
-.searchbar {
-	position: absolute;
-}
-
+/* BUTTONS */
 .onboarding-btn {
 	background-color: rgb(90, 156, 117);
 	border: none;
@@ -133,30 +128,33 @@ textarea {
 	background-color: rgba(255, 142, 107, 0.7);
 	font-weight: 300;
 	outline: none;
-	/* display: flex;
-	align-self: end; */
-	/* width: 100px; */
 }
 .edit-btn:hover {
 	background-color: rgba(252, 121, 81, 0.7);
 }
 
-.spacer-bottom {
-	/* height: 25px; */
-	background-color: rgb(252, 240, 222);
+.add-recipe-btn {
+	background-color: rgb(74, 129, 97);
+	font-weight: 300;
+	outline: none;
+	width: 100%;
 }
 
-.hidden {
-	visibility: hidden;
+.add-recipe-btn:hover {
+	background-color: rgb(51, 90, 67);
 }
 
-.dropdown-menu {
-	background-color: rgb(218, 228, 224);
-	margin-bottom: 10px;
+/* Home  */
+.form-box {
+	position: relative;
+	top: 235px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 0;
 }
 
-.dropdown {
-	margin-right: 100px;
+.searchbar {
+	position: absolute;
 }
 
 #search-results {
@@ -176,6 +174,23 @@ textarea {
 	color: rgb(171, 241, 200);
 }
 
+/* FAVORITES */
+.favorites-form-box {
+	/* position: relative; */
+	top: -36px;
+	display: flex;
+	justify-content: center;
+	z-index: 2000;
+}
+
+/* USER RECIPES */
+.own-form-box {
+	top: -36px;
+	display: flex;
+	justify-content: center;
+	z-index: 2000;
+}
+
 #own-recipes {
 	position: relative;
 	/* top: 53px; */
@@ -185,7 +200,7 @@ textarea {
 	height: 100vh;
 }
 
-.ingredients {
+.my-ingredients {
 	font-size: 12px;
 	font-weight: 300;
 	height: 25%;
@@ -195,14 +210,14 @@ textarea {
 	padding: 4px 6px;
 }
 
-.ingredients-title {
+.my-ingredients-title {
 	font-size: 12px;
 }
 
 .card {
 	/* margin-bottom: 30px; */
 	margin-top: 0px;
-	padding: 10px;
+	padding: 30px 10px 10px 10px;
 	height: 500px;
 	background-image: url(../static/images/patrick-fore-bg20VZvrfvY-unsplash.jpg);
 	background-size: cover;
@@ -221,6 +236,7 @@ textarea {
 .card.fav-card {
 	height: 450px;
 	padding-bottom: auto;
+	padding-top: 30px;
 }
 
 .card-title {
@@ -255,18 +271,28 @@ textarea {
 /* Add Recipe */
 .add-recipe-form-box {
 	position: relative;
-	top: 180px;
+	top: 130px;
+	width: fit-content;
+	padding: 30px;
+	background-color: rgba(99, 172, 130, 0.747);
+	border-radius: 5px;
+}
+
+.user-add-recipe-title {
+	padding: 5px 10px 5px 10px;
 }
 
 .own-result-img,
 .result-img {
-	max-width: 200px;
-	min-height: 80px;
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
 }
 
 .card.own-card {
 	height: 450px;
 	padding-bottom: auto;
+	padding-top: 30px;
 }
 
 #own-recipe {
@@ -289,12 +315,11 @@ textarea {
 	margin-top: 10px;
 }
 
-/* GRID */
+/* FULL USER RECIPE GRID */
 
 .wrapper {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	/* grid-gap: 10px; */
 	width: 80vw;
 	height: 80vh;
 	position: relative;
@@ -302,8 +327,8 @@ textarea {
 	margin: 0 auto;
 	padding-bottom: 80px 20px;
 	background-color: rgba(99, 172, 130, 0.747);
-	/* grid-auto-rows: 250px; */
 	grid-column-gap: 1.5em;
+	border-radius: 10px;
 }
 
 .full-recipe-img {
@@ -415,15 +440,31 @@ textarea {
 		height: 350px;
 	}
 }
+
+@media (max-width: 812px) {
+	.card,
+	.card.fav-card,
+	.card.own-card {
+		height: 375px;
+	}
+
+	.own-result-img,
+	.result-img {
+		width: 200px;
+		height: 150px;
+		object-fit: cover;
+	}
+	/* .searchbar {
+		margin-bottom: 200px;
+	} */
+}
+
 @media (max-width: 770px) {
 	.card {
 		height: 500px;
 	}
 
-	.card.fav-card {
-		height: 450px;
-	}
-
+	.card.fav-card,
 	.card.own-card {
 		height: 450px;
 	}
@@ -443,12 +484,8 @@ textarea {
 	}
 
 	.card-title {
-		padding-left: 25px;
+		/* padding-left: 25px; */
 		font-size: 16px;
-	}
-
-	.cuisine-type {
-		padding-left: 25px;
 	}
 
 	.res-cols {
@@ -457,6 +494,11 @@ textarea {
 	.result-img {
 		width: 250px;
 		margin-bottom: 15px;
+	}
+
+	.favorites-form-box,
+	.own-form-box {
+		margin-left: 75px;
 	}
 }
 
@@ -480,7 +522,7 @@ textarea {
 @media (max-width: 675px) {
 	.favorites-form-box,
 	.own-form-box {
-		margin-left: 50px;
+		margin-left: 70px;
 	}
 
 	.res-cols {
@@ -572,7 +614,7 @@ textarea {
 @media (max-width: 320px) {
 	.favorites-form-box,
 	.own-form-box {
-		margin-left: 70px;
+		margin-left: 80px;
 		width: 180px;
 	}
 }
@@ -581,8 +623,8 @@ textarea {
 	.res-cols {
 		padding-left: 25px;
 	}
-	.card-title {
+	/* .card-title {
 		padding-left: 10px;
 		font-size: 14px;
-	}
+	} */
 }
