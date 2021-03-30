@@ -36,8 +36,8 @@ class User(db.Model):
 
         user = User(
             username=username,
-            email=email,
-            password=hashed_pwd
+            password=hashed_pwd,
+            email=email
         )
 
         db.session.add(user)
@@ -71,11 +71,10 @@ class Recipe(db.Model):
     image_url = db.Column(db.Text, nullable=False)
     cuisine_type = db.Column(db.Text, nullable=True)
 
-    # ingredients nullable true for now
     ingredients = db.Column(db.Text, nullable=True)
     instructions = db.Column(db.Text, nullable=True)
 
-    # user-made recipes may not have a url
+    # (nullable) user-made recipes may not have a url
     url = db.Column(db.Text, nullable=True)
     
     # recipes from Edamame are not associated with a particular user

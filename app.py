@@ -7,6 +7,9 @@ from sqlalchemy.exc import IntegrityError
 from forms import UserSignupForm, LoginForm, AddRecipe
 from models import db, connect_db, User, Recipe, FavoriteRecipe
 from search_service import search
+from search_favorites_service import search_favorites
+from search_own_service import search_own
+from add_favorites_req_service import get_recipe
 
 CURR_USER_KEY = "curr_user"
 
@@ -135,8 +138,14 @@ def home():
 def view_favorites():
     """View user's favorite/saved recipes"""
 
+    if not g.user:
+        flash("Please log in first!", "danger")
+        return redirect("/login")
+
     curr_user = User.query.get_or_404(g.user.id)
     favorites = curr_user.favorites
+    # import pdb
+    # pdb.set_trace()
 
     return render_template('favorites.html', favorites=favorites)
 
@@ -144,25 +153,34 @@ def view_favorites():
 def add_favorite():
     """Add/Save recipe to user's Favorites page"""
 
+    if not g.user:
+        flash("Please log in first!", "danger")
+        return redirect("/login")
+
     recipe_uri = request.form["add-favorite-input"]
-    resp = requests.get(f'{BASE_URL}', params= {'r' : recipe_uri, 'app_id' : API_ID, 'app_key' : API_KEY})
-    recipe_data = resp.json()
+    recipe_data = get_recipe(recipe_uri)
     
-    recipe_exists = Recipe.query.get(recipe_uri)
-    if recipe_exists == None:
+    # add selected recipe to DB if it does not already exist in DB
+    recipe = Recipe.query.get(recipe_uri)
+    if recipe == None:
         db_recipe = Recipe(uri=recipe_data[0]['uri'], name=recipe_data[0]['label'], image_url=recipe_data[0]['image'], url=recipe_data[0]['url'])
         db.session.add(db_recipe)
         db.session.commit()
-    
+
+    # add recipe to user's favorites
     new_fav = FavoriteRecipe(user_id=session[CURR_USER_KEY], recipe_uri=recipe_uri)
     db.session.add(new_fav)
     db.session.commit()
-
+    flash(f"Recipe saved!", "success")
     return redirect('/favorites')
 
 @app.route('/favorites/remove', methods=["POST"])
 def remove_favorite():
     """Remove recipe from user's Favorites page"""
+
+    if not g.user:
+        flash("Please log in first!", "danger")
+        return redirect("/login")
 
     curr_user = User.query.get_or_404(g.user.id)
     recipe_uri = request.form["remove-favorite-input"]
@@ -170,17 +188,23 @@ def remove_favorite():
     FavoriteRecipe.query.filter((FavoriteRecipe.user_id == curr_user.id) & (FavoriteRecipe.recipe_uri == recipe_uri)).delete()
     db.session.commit()
 
+    flash(f"Recipe removed!", "success")
     return redirect('/favorites')
 
 
 
 #################### My Recipes ###############################
 @app.route('/my_recipes')
-def my_recipes():
+def view_my_recipes():
     """View user's own recipes page"""
 
-    my_recipes = Recipe.query.filter((Recipe.user_id==g.user.id)&(Recipe.own_recipe==True)).all()
+    if not g.user:
+        flash("Please log in first!", "danger")
+        return redirect("/login")
 
+    my_recipes = Recipe.query.filter((Recipe.user_id==g.user.id)&(Recipe.own_recipe==True)).all()
+    # import pdb
+    # pdb.set_trace()
     return render_template('my-recipes.html', my_recipes=my_recipes)
 
 @app.route('/my_recipes/add_recipe', methods=["GET", "POST"])
@@ -189,6 +213,9 @@ def add_recipe():
        Get and Submit recipe form.
     """
 
+    if not g.user:
+        flash("Please log in first!", "danger")
+        return redirect("/login")
     user_id = g.user.id
     
     form = AddRecipe(user_id=user_id)
@@ -197,7 +224,7 @@ def add_recipe():
         
         new_recipe = Recipe(uri=form.name.data,
                             name=form.name.data,
-                            image_url=form.image_url.data,
+                            image_url=form.image_url.data if form.image_url.data != "" else "/static/images/defaultfood.png",
                             cuisine_type=form.cuisine_type.data,
                             ingredients=form.ingredients.data,
                             instructions=form.instructions.data,
@@ -217,23 +244,30 @@ def add_recipe():
 def delete_my_recipe():
     """Delete user's own recipe"""
 
+    if not g.user:
+        flash("Please log in first!", "danger")
+        return redirect("/login")
+
     curr_user = User.query.get_or_404(g.user.id)
-    recipe_uri = request.form["delete-my-recipe-input"]
+    recipe_uri = request.form.get("delete-my-recipe-input")
 
     Recipe.query.filter((Recipe.user_id == curr_user.id) & (Recipe.uri == recipe_uri)).delete()
     db.session.commit()
-
+    flash(f"Recipe deleted!", "success")
     return redirect('/my_recipes')
 
 @app.route('/my_recipes/<recipe_uri>')
 def view_recipe(recipe_uri):
     """Display full recipe for user's own recipe"""
 
+    if not g.user:
+        flash("Please log in first!", "danger")
+        return redirect("/login")
+
     my_recipe = Recipe.query.filter((Recipe.user_id==g.user.id)&(Recipe.uri==recipe_uri)).first()
     ingredients_list = my_recipe.ingredients.split(',')
     steps = my_recipe.instructions.split(',')
-    # import pdb
-    # pdb.set_trace()
+
     return render_template('full-recipe.html', my_recipe=my_recipe, ingredients_list=ingredients_list, steps=steps)
 
 @app.route('/my_recipes/<recipe_uri>/edit', methods=["GET", "POST"])
@@ -241,6 +275,10 @@ def edit_my_recipe(recipe_uri):
     """Edit user's own recipe.
        Get and submit edit form
     """
+
+    if not g.user:
+        flash("Please log in first!", "danger")
+        return redirect("/login")
 
     user_id = g.user.id
     recipe = Recipe.query.get_or_404(recipe_uri)
@@ -262,14 +300,6 @@ def edit_my_recipe(recipe_uri):
 
 
 ###############################################################
-# @app.route('/get_favorites_uri')
-# def get_user_favorite_recipes():
-#     """Makes a list of user saved recipes to mark them as 'Favorites' in search results"""
-
-#     curr_user = User.query.get_or_404(g.user.id)
-#     saved_recipes = curr_user.favorites
-#     saved_recipes_uris = [r.uri for r in saved_recipes]
-#     return jsonify(uris=saved_recipes_uris)
 
 @app.route('/search_api')
 def search_api():
@@ -282,31 +312,21 @@ def search_api():
     recipes_list = search(user_id, searchterm, frm, to)
     return jsonify(recipes_list)
 
+
 @app.route('/get_favorites/<searchterm>')
 def get_favorites(searchterm):
     """Search Favorites searchbar. 
         Display favorited recipes that match searchterm real-time.
     """
+    if not g.user:
+        flash("Unauthorized page! Must be logged in!", 'danger') 
+        return redirect('/login')   
+    else:
+        user_id = g.user.id 
 
-    curr_user = User.query.get_or_404(g.user.id)
-    favorites = curr_user.favorites
-    favorites_uri = [r.uri for r in favorites]
-  
-    serialized_favs = [f.serialize() for f in Recipe.query.filter((Recipe.uri.in_(favorites_uri)) & (Recipe.name.ilike(f"%{searchterm}%"))).all()]
-                        
-    return jsonify(serialized_favs)
-
-@app.route('/get_favorites')
-def get_all_favorites():
-    """Search Favorites searchbar. 
-       Display all favorited recipes when searchbar is blank.
-    """
-
-    curr_user = User.query.get_or_404(g.user.id)
-    favorites = curr_user.favorites
-    serialized_favs = [f.serialize() for f in favorites]
-                        
-    return jsonify(serialized_favs)
+        serialized_favs = search_favorites(user_id, searchterm)
+    
+        return jsonify(serialized_favs)
 
 
 @app.route('/get_own/<searchterm>')
@@ -315,25 +335,14 @@ def get_own(searchterm):
         Display own recipes that match searchterm real-time.
     """
 
-    curr_user = User.query.get_or_404(g.user.id)
-    own_recipes = Recipe.query.filter((Recipe.user_id == curr_user.id) & (Recipe.own_recipe == True)).all()
-    # import pdb
-    # pdb.set_trace()
-    own_recipes_uri = [o.uri for o in own_recipes]
-    # import pdb
-    # pdb.set_trace()
-    serialized_own = [o.serialize() for o in Recipe.query.filter((Recipe.uri.in_(own_recipes_uri)) & (Recipe.name.ilike(f"%{searchterm}%"))).all()]
-                        
-    
-    return jsonify(serialized_own)
+    if not g.user:
+        flash("Unauthorized page! Must be logged in!", 'danger') 
+        return redirect('/login')   
+    else:
+        user_id = g.user.id 
 
-@app.route('/get_own')
-def get_all_own():
-    """Search Own Recipes searchbar. 
-       Display all own recipes when searchbar is blank.
-    """
-    curr_user = User.query.get_or_404(g.user.id)
-    own_recipes = Recipe.query.filter((Recipe.user_id == curr_user.id) & (Recipe.own_recipe == True)).all()
-    serialized_own = [o.serialize() for o in own_recipes]
-                        
-    return jsonify(serialized_own)
+        serialized_own = search_own(user_id, searchterm)
+    
+        return jsonify(serialized_own)
+
+ 

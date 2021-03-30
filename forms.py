@@ -29,7 +29,7 @@ class AddRecipe(FlaskForm):
     """Form to add new recipe."""
 
     name = StringField('Recipe Name', validators=[DataRequired()])
-    image_url = StringField('Image URL (Optional)')
+    image_url = StringField('Image URL', validators=[DataRequired()])
     cuisine_type = StringField('Cuisine Type')
     ingredients = TextAreaField('List ingredients separated by comma')
     instructions = TextAreaField('Instructions separated by comma')

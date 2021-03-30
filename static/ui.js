@@ -24,7 +24,6 @@ $searchForm.on('submit', async function(e) {
 	renderResults(res.data);
 
 	$('.more-btn').show();
-	// How to auto-scroll to new results?????????
 	$searchResults[0].scrollIntoView();
 });
 
@@ -66,9 +65,6 @@ async function renderResults(recipes_arr) {
 	                                </div>
 	                               </div>`);
 		} else {
-			// let resp = await axios.get('/get_favorites_uri');
-			// let SavedRecipes = resp.data.uris;
-			// check if r.recipe.uri in USER_FAVORITES to mark it accordingly
 			if (r.bookmarked === false) {
 				$searchResults.append(`<div class="col-3 res-cols">
 				<div class="card">
@@ -115,12 +111,13 @@ async function renderResults(recipes_arr) {
 	$searchResults.append(`<div class="hidden" style="height: 40px"></div>`);
 }
 
+// **** Functionality to render favorite search-results real-time **** //
 $('#favorites-search-form').on('keyup', async function(e) {
 	e.preventDefault();
 	const searchterm = $('#favorites-search-input').val();
 
 	if (searchterm === '') {
-		res = await axios.get('/get_favorites');
+		res = await axios.get('/get_favorites/all');
 		console.log(res);
 		$('#favorites').empty();
 
@@ -160,12 +157,13 @@ function renderFavorite(favRecipe) {
 </div>`);
 }
 
+// **** Functionality to render user's own recipes search-results real-time **** //
 $('#own-search-form').on('keyup', async function(e) {
 	e.preventDefault();
 	const searchterm = $('#own-search-input').val();
 
 	if (searchterm === '') {
-		res = await axios.get('/get_own');
+		res = await axios.get('/get_own/all');
 		console.log(res);
 		$('#own-recipes').empty();
 
@@ -206,10 +204,21 @@ function renderOwn(ownRecipe) {
 </div>`);
 }
 
+// **** Fade out scrolling tip (user's ability to scroll on recipe card) **** //
 $('.wrapper').on('scroll', () => {
-	$('.scroll-sign').detach();
+	$('.scroll-sign').fadeOut();
 });
 
 setTimeout(() => {
 	$('.scroll-sign').fadeOut();
 }, 4000);
+
+// **** Fade out flash-message on user favorites page when user scrolls **** //
+$('#favorites').on('scroll', () => {
+	$('.alert').fadeOut();
+});
+
+// **** Fade out flash-message on user own recipes page when user scrolls **** //
+$('#own-recipes').on('scroll', () => {
+	$('.alert').fadeOut();
+});

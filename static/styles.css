@@ -58,7 +58,8 @@ textarea {
 /* FLASH MESSAGES */
 .alert {
 	position: absolute;
-	top: 150px;
+	top: 100px;
+	z-index: 1000;
 }
 
 /* BUTTONS */
@@ -215,8 +216,6 @@ textarea {
 }
 
 .card {
-	/* margin-bottom: 30px; */
-	margin-top: 0px;
 	padding: 30px 10px 10px 10px;
 	height: 500px;
 	background-image: url(../static/images/patrick-fore-bg20VZvrfvY-unsplash.jpg);
@@ -237,6 +236,7 @@ textarea {
 	height: 450px;
 	padding-bottom: auto;
 	padding-top: 30px;
+	margin-top: 40px;
 }
 
 .card-title {
@@ -248,11 +248,12 @@ textarea {
 .res-cols {
 	padding-top: 0px;
 	padding-bottom: 0px;
-	margin-top: 20px;
+	margin-top: 40px;
 	margin-bottom: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	height: auto;
+	/* width: auto; */
 }
 
 .cuisine-type {
@@ -290,9 +291,10 @@ textarea {
 }
 
 .card.own-card {
-	height: 450px;
+	height: auto;
 	padding-bottom: auto;
 	padding-top: 30px;
+	margin-top: 40px;
 }
 
 #own-recipe {
@@ -348,6 +350,7 @@ textarea {
 	position: relative;
 	top: 20px;
 	justify-self: center;
+	text-align: center;
 }
 .full-recipe-ingredients {
 	height: 90%;
@@ -445,14 +448,13 @@ textarea {
 	.card,
 	.card.fav-card,
 	.card.own-card {
-		height: 375px;
+		height: auto;
 	}
 
 	.own-result-img,
 	.result-img {
 		width: 200px;
 		height: 150px;
-		object-fit: cover;
 	}
 	/* .searchbar {
 		margin-bottom: 200px;
