@@ -500,7 +500,7 @@ textarea {
 
 	.favorites-form-box,
 	.own-form-box {
-		margin-left: 75px;
+		margin-left: 50px;
 	}
 }
 
@@ -524,7 +524,7 @@ textarea {
 @media (max-width: 675px) {
 	.favorites-form-box,
 	.own-form-box {
-		margin-left: 70px;
+		margin-left: 40px;
 	}
 
 	.res-cols {

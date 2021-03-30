@@ -80,7 +80,7 @@ class Recipe(db.Model):
     # recipes from Edamame are not associated with a particular user
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=True)
 
-    own_recipe = db.Column(db.Boolean, default=False)
+    # own_recipe = db.Column(db.Boolean, default=False)
 
     def serialize(self):
         return {
@@ -91,8 +91,7 @@ class Recipe(db.Model):
             'ingredients': self.ingredients,
             'instructions': self.instructions,
             'url': self.url,
-            'user_id': self.user_id,
-            'own_recipe': self.own_recipe
+            'user_id': self.user_id
         }
 
     def __repr__(self):

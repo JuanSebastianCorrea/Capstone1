@@ -40,7 +40,7 @@ class MyRecipesViewsTestCase(TestCase):
 
         db.session.commit()
 
-        r = Recipe(uri="testuri", name="testname", image_url="test_image_url", ingredients="", instructions="", user_id=self.testuser.id, own_recipe=True)
+        r = Recipe(uri="testuri", name="testname", image_url="test_image_url", ingredients="", instructions="", user_id=self.testuser.id)
         
         db.session.add(r)
         db.session.commit()
@@ -93,35 +93,38 @@ class MyRecipesViewsTestCase(TestCase):
                 sess[CURR_USER_KEY] = self.testuser.id
 
             r = Recipe.query.get("testuri")
-               
+            
             resp = c.post(f'/my_recipes/delete', data={"delete-my-recipe-input" : r.uri}, follow_redirects=True)
-                
+
+            recipes = Recipe.query.all()
             self.assertEqual(resp.status_code, 200)
+            self.assertEqual(len(recipes), 0)
     
 
-    # def test_add_recipe(self):
-    #     """Does a new recipe get added?"""
+    def test_add_recipe(self):
+        """Does a new recipe get added?"""
 
-    #     with self.client as c:
-    #         with c.session_transaction() as sess:
-    #             sess[CURR_USER_KEY] = self.testuser.id
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
 
-    #         resp = c.post("/my_recipes/add_recipe", data={"uri" : "testuri2", "name" : "testname2", "image_url" : "test_image_url2", "ingredients" : "testingredients2", "instructions" : "testinstructions2", "user_id" : self.testuser.id, "own_recipe" : True})
+            resp = c.post("/my_recipes/add_recipe", data={"uri" : "testuri2", "name" : "testname2", "image_url" : "test_image_url2", "ingredients" : "testingredients2", "instructions" : "testinstructions2", "user_id" : 1111})
+
             
-    #         # Make sure it redirects
-    #         self.assertEqual(resp.status_code, 302)
+            recipes = Recipe.query.all()
+            # recipe = Recipe.query.get("testuri2")
+            recipe = Recipe.query.filter_by(name="testname2").first()
+           
+            # Make sure it redirects
+            self.assertEqual(resp.status_code, 302)
 
-    #         # recipes = Recipe.query.all()
-    #         recipe = Recipe.query.get("testuri2")
-    #         import pdb
-    #         pdb.set_trace()
-    #         # self.assertEqual(len(recipes), 2)
-    #         self.assertEqual(recipe.name, "testname2")
-    #         self.assertEqual(recipe.image_url, "test_image_url2")
-    #         self.assertEqual(recipe.ingredients, "testingredients2")
-    #         self.assertEqual(recipe.instructions, "testinstructions2")
-    #         self.assertEqual(recipe.user_id, 1111)
-    #         self.assertEqual(recipe.own_recipe, True)
+            self.assertEqual(len(recipes), 2)
+            self.assertEqual(recipe.name, "testname2")
+            self.assertEqual(recipe.image_url, "test_image_url2")
+            self.assertEqual(recipe.ingredients, "testingredients2")
+            self.assertEqual(recipe.instructions, "testinstructions2")
+            self.assertEqual(recipe.user_id, 1111)
+           
 
 
 #    def test_edit_my_recipe(self):

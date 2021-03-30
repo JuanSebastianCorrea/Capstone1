@@ -202,7 +202,7 @@ def view_my_recipes():
         flash("Please log in first!", "danger")
         return redirect("/login")
 
-    my_recipes = Recipe.query.filter((Recipe.user_id==g.user.id)&(Recipe.own_recipe==True)).all()
+    my_recipes = Recipe.query.filter(Recipe.user_id==g.user.id).all()
     # import pdb
     # pdb.set_trace()
     return render_template('my-recipes.html', my_recipes=my_recipes)
@@ -228,8 +228,7 @@ def add_recipe():
                             cuisine_type=form.cuisine_type.data,
                             ingredients=form.ingredients.data,
                             instructions=form.instructions.data,
-                            user_id=user_id,
-                            own_recipe=True)
+                            user_id=user_id)
 
         db.session.add(new_recipe)
         db.session.commit()

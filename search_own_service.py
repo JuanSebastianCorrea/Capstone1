@@ -3,7 +3,7 @@ from models import User, Recipe
 def search_own(user_id, searchterm):
 
     curr_user = User.query.get_or_404(user_id)
-    own_recipes = Recipe.query.filter((Recipe.user_id == curr_user.id) & (Recipe.own_recipe == True)).all()
+    own_recipes = Recipe.query.filter(Recipe.user_id == curr_user.id).all()
 
     if searchterm == 'all':
         serialized_own = [o.serialize() for o in own_recipes]

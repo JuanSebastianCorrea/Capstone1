@@ -48,16 +48,19 @@ class MessageModelTestCase(TestCase):
         self.assertEqual(recipes[0].name, "testname")
         self.assertEqual(recipes[0].image_url, "test_image_url")
 
-    def test_user_own_recipes(self):
-        """Are recipes made by a user stored as own_recipe = True ind DB?"""
 
-        recipe1 = Recipe(uri="testuri", name="testname", image_url="test_image_url", user_id=self.uid, own_recipe=True)
+    # Is this test even useful?
+    def test_user_own_recipes(self):
+        """Are recipes made by a user?"""
+
+        recipe1 = Recipe(uri="testuri", name="testname", image_url="test_image_url", user_id=self.uid)
         recipe2 = Recipe(uri="testuri2", name="testname2", image_url="test_image_url2")
 
         db.session.add_all([recipe1, recipe2])
         db.session.commit()
 
-        self.assertTrue(recipe1.own_recipe)
-        self.assertFalse(recipe2.own_recipe)
+        self.assertEqual(recipe1.user_id, self.uid)
+        self.assertNotEqual(recipe2.user_id, self.uid)
+        self.assertEqual(recipe2.user_id, None)
 
 
