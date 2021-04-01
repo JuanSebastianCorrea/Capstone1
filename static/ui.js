@@ -29,14 +29,9 @@ $searchForm.on('submit', async function(e) {
 
 $('.more-btn').on('click', async function(e) {
 	e.preventDefault();
-	console.log('more clicked');
-	console.log($searchInput.val());
-
 	frm += 9;
 	to += 9;
-	console.log(frm);
-	console.log(to);
-	console.log(searchterm);
+
 	res = await axios.get('/search_api', { params: { searchterm, frm, to } });
 
 	renderResults(res.data);
@@ -44,7 +39,6 @@ $('.more-btn').on('click', async function(e) {
 
 async function renderResults(recipes_arr) {
 	for (r of recipes_arr) {
-		console.log(r);
 		if ($('#curr_user').val() === 'None') {
 			$searchResults.append(`<div class="col-3 res-cols">
 	                                <div class="card">
@@ -118,7 +112,7 @@ $('#favorites-search-form').on('keyup', async function(e) {
 
 	if (searchterm === '') {
 		res = await axios.get('/get_favorites/all');
-		console.log(res);
+
 		$('#favorites').empty();
 
 		for (r of res.data) {
@@ -164,7 +158,7 @@ $('#own-search-form').on('keyup', async function(e) {
 
 	if (searchterm === '') {
 		res = await axios.get('/get_own/all');
-		console.log(res);
+
 		$('#own-recipes').empty();
 
 		for (r of res.data) {

@@ -57,7 +57,7 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
-# /////////////////////////////////////////
+#//////////////////////////////////////////////////#
 
 
 @app.route('/signup', methods=["GET", "POST"])
@@ -71,6 +71,7 @@ def signup():
     If the there already is a user with that username: flash message
     and re-present form.
     """
+    
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
     form = UserSignupForm()
@@ -95,6 +96,7 @@ def signup():
     else:
         return render_template('signup.html', form=form)
 
+#//////////////////////////////////////////////////#
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -115,6 +117,7 @@ def login():
 
     return render_template('login.html', form=form)
 
+#//////////////////////////////////////////////////#
 
 @app.route('/logout')
 def logout():
@@ -129,6 +132,8 @@ def logout():
 
 @app.route('/')
 def home():
+    """Display Hompage"""
+
     curr_user = g.user
     return render_template('home.html', curr_user=curr_user)
 
@@ -144,8 +149,6 @@ def view_favorites():
 
     curr_user = User.query.get_or_404(g.user.id)
     favorites = curr_user.favorites
-    # import pdb
-    # pdb.set_trace()
 
     return render_template('favorites.html', favorites=favorites)
 
@@ -203,8 +206,6 @@ def view_my_recipes():
         return redirect("/login")
 
     my_recipes = Recipe.query.filter(Recipe.user_id==g.user.id).all()
-    # import pdb
-    # pdb.set_trace()
     return render_template('my-recipes.html', my_recipes=my_recipes)
 
 @app.route('/my_recipes/add_recipe', methods=["GET", "POST"])
@@ -298,11 +299,12 @@ def edit_my_recipe(recipe_uri):
     return render_template('edit-recipe.html', form=form, recipe=recipe)
 
 
-###############################################################
+##################### GENERAL SEARCH TO EXTERNAL API ################################
 
 @app.route('/search_api')
 def search_api():
-    """Search for recipes"""    
+    """Search for recipes"""   
+
     searchterm = request.args["searchterm"]
     frm = request.args["frm"]
     to = request.args["to"]
@@ -312,11 +314,13 @@ def search_api():
     return jsonify(recipes_list)
 
 
+##################### SEARCH DB ################################
 @app.route('/get_favorites/<searchterm>')
 def get_favorites(searchterm):
     """Search Favorites searchbar. 
         Display favorited recipes that match searchterm real-time.
     """
+
     if not g.user:
         flash("Unauthorized page! Must be logged in!", 'danger') 
         return redirect('/login')   

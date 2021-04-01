@@ -23,11 +23,6 @@
             <div class="container-fluid h-50 px-0">
             <div class="card-body own-card-body">
             <h5 class="card-title text-light mt-1 text-center">{{r.name}}</h5>
-            <!-- <p class="card-text text-light cuisine-type">{{r.cuisine_type}}</p> -->
-            <!-- {% if r.ingredients %}
-            <h5 class="text-light my-ingredients-title">Ingredients:</h5>
-            <p class="card-text text-light my-ingredients overflow-scroll">{{r.ingredients}}</p>
-            {% endif %} -->
             <a href="/my_recipes/{{r.uri}}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
             <form action="/my_recipes/delete" method="POST">
                 <input class="delete-my-recipe-input" name="delete-my-recipe-input" value="{{r.uri}}" hidden>
