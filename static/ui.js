@@ -33,7 +33,7 @@ $('.more-btn').on('click', async function(e) {
 	to += 9;
 
 	res = await axios.get('/search_api', { params: { searchterm, frm, to } });
-
+	$('html, body').animate({ scrollTop: $(document).height() }, 100);
 	renderResults(res.data);
 });
 

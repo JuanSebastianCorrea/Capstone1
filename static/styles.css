@@ -177,7 +177,7 @@ textarea {
 
 #search-results {
 	position: relative;
-	top: 631px;
+	top: 100vh;
 }
 
 .favorited-text {
