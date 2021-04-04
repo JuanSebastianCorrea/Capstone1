@@ -198,15 +198,6 @@ function renderOwn(ownRecipe) {
 </div>`);
 }
 
-// **** Fade out scrolling tip (user's ability to scroll on recipe card) **** //
-$('.wrapper').on('scroll', () => {
-	$('.scroll-sign').fadeOut();
-});
-
-setTimeout(() => {
-	$('.scroll-sign').fadeOut();
-}, 4000);
-
 // **** Fade out flash-message on user favorites page when user scrolls **** //
 $('#favorites').on('scroll', () => {
 	$('.alert').fadeOut();

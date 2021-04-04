@@ -176,8 +176,12 @@ textarea {
 }
 
 #search-results {
+	background-color: rgb(172, 177, 149);
 	position: relative;
 	top: 100vh;
+	background-image: url(../static/images/andy-chilton-0JFveX0c778-unsplash.jpg);
+
+	background-blend-mode: screen;
 }
 
 .favorited-text {
@@ -310,6 +314,11 @@ textarea {
 	border-radius: 10px;
 }
 
+.wrapper h6 {
+	background-color: rgba(255, 140, 87, 0.7);
+	border-radius: 4px;
+}
+
 .full-recipe-img {
 	width: 200px;
 	min-width: 150px;
@@ -328,6 +337,7 @@ textarea {
 	justify-self: center;
 	text-align: center;
 }
+
 .full-recipe-ingredients {
 	height: 90%;
 	grid-row: 2/3;
@@ -361,30 +371,6 @@ textarea {
 	font-size: 12px;
 	margin-bottom: 12px;
 	color: white;
-}
-
-/****** ANIMATIONS ******/
-.fa-hand-pointer {
-	position: relative;
-	font-size: 60px;
-	transform: rotate(-55deg);
-	animation-name: scroll;
-	animation-duration: 2s;
-	animation-iteration-count: 4;
-	animation-timing-function: ease-out;
-	z-index: 1000;
-}
-
-@keyframes scroll {
-	0% {
-		top: 0px;
-	}
-	50% {
-		top: 60px;
-	}
-	100% {
-		top: 0px;
-	}
 }
 
 /****** MEDIA QUERIES ******/
@@ -568,6 +554,9 @@ textarea {
 	.full-recipe-ingredients {
 		grid-row: 4/5;
 		grid-column: 1/2;
+		justify-self: center;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	.full-recipe-instructions {
 		grid-row: 5/6;
