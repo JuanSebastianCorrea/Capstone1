@@ -176,12 +176,9 @@ textarea {
 }
 
 #search-results {
-	background: rgb(172, 177, 149);
+	background: rgb(249, 252, 239);
 	position: relative;
 	top: 100vh;
-	background-image: url(../static/images/andy-chilton-0JFveX0c778-unsplash.jpg);
-
-	background-blend-mode: screen;
 }
 
 .favorited-text {
