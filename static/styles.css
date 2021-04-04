@@ -176,7 +176,7 @@ textarea {
 }
 
 #search-results {
-	background-color: rgb(172, 177, 149);
+	background: rgb(172, 177, 149);
 	position: relative;
 	top: 100vh;
 	background-image: url(../static/images/andy-chilton-0JFveX0c778-unsplash.jpg);
