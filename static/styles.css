@@ -408,7 +408,7 @@ textarea {
 	.card,
 	.card.fav-card,
 	.card.own-card {
-		height: auto;
+		height: 100%;
 	}
 
 	.own-result-img,

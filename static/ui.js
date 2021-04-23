@@ -59,7 +59,8 @@ async function renderResults(recipes_arr) {
 	                                </div>
 	                               </div>`);
 		} else {
-			if (r.bookmarked === false) {
+			console.log(r.bookmarked);
+			if (r.bookmarked === true) {
 				$searchResults.append(`<div class="col-3 res-cols">
 				<div class="card">
 				<a href="${r.recipe.url}" class="d-flex justify-content-center">
@@ -72,11 +73,7 @@ async function renderResults(recipes_arr) {
 					? 'world'
 					: r.recipe.cuisineType}</p>
 				<a href="${r.recipe.url}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
-				<form method="POST" action="/favorites/add">
-				<input class="add-favorite-input" name="add-favorite-input" value="${r.recipe.uri}" hidden>
-
-				<button href="" class="btn btn-sm text-light save-recipe-btn" type="submit">Save Recipe</button>
-				</form>
+				<a href="/favorites" class="text-center d-flex justify-content-center favorited-text py-0">Favorite <i class="fab fa-pagelines"></i></a>
 				</div>
 				</div>
 				</div>
@@ -94,7 +91,11 @@ async function renderResults(recipes_arr) {
 					? 'world'
 					: r.recipe.cuisineType}</p>
 				<a href="${r.recipe.url}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
-				<a href="/favorites" class="text-center d-flex justify-content-center favorited-text py-0">Favorite <i class="fab fa-pagelines"></i></a>
+				<form method="POST" action="/favorites/add">
+				<input class="add-favorite-input" name="add-favorite-input" value="${r.recipe.uri}" hidden>
+
+				<button href="" class="btn btn-sm text-light save-recipe-btn" type="submit">Save Recipe</button>
+				</form>
 				</div>
 				</div>
 				</div>

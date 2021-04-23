@@ -311,6 +311,7 @@ def search_api():
 
     user_id = g.user.id if g.user else None
     recipes_list = search(user_id, searchterm, frm, to)
+    
     return jsonify(recipes_list)
 
 
