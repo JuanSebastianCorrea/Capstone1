@@ -17,7 +17,7 @@
         {% for r in my_recipes %}
         <div class="col-3 res-cols">
             <div class="card own-card container-fluid">
-            <a href="" class="d-flex justify-content-center">
+            <a href="/my_recipes/{{r.uri}}" class="d-flex justify-content-center">
             <img class="own-result-img card-img-top img-fluid" src="{{r.image_url}}" alt="{{r.name}} photo">
             </a>
             <div class="container-fluid h-50 px-0">

@@ -334,6 +334,10 @@ textarea {
 	text-align: center;
 }
 
+.full-recipe-cuisine-type {
+	font-size: 20px;
+}
+
 .full-recipe-ingredients {
 	height: 90%;
 	grid-row: 2/3;

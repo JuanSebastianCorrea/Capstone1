@@ -179,17 +179,17 @@ $('#own-search-form').on('keyup', async function(e) {
 
 function renderOwn(ownRecipe) {
 	return $(`<div class="col-3 res-cols">
-	<div class="card fav-card">
-	<a href="${ownRecipe.url}" class="d-flex justify-content-center">
+	<div class="card own-card container-fluid">
+	<a href="/my_recipes/${ownRecipe.uri}" class="d-flex justify-content-center">
 	<img class="result-img card-img-top img-fluid" src="${ownRecipe.image_url}" alt="${ownRecipe.name} photo">
 	</a>
 	<div class="container-fluid px-0">
 	<div class="card-body mt-0">
 	<h5 class="card-title text-light text-center">${ownRecipe.name}</h5>
-	<a href="${ownRecipe.url}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
+	<a href="/my_recipes/${ownRecipe.uri}" class="btn btn-sm text-light recipe-btn mb-2">View Recipe</a>
 	<form action="/favorites/remove" method="POST">
 		<input class="delete-favorite-input" name="remove-favorite-input" value="${ownRecipe.uri}" hidden>
-		<button class="btn btn-sm text-light remove-btn mb-2" type="submit">Remove Recipe <i class="fas fa-trash"></i></button>
+		<button class="btn btn-sm text-light remove-btn mb-2" type="submit">Delete Recipe <i class="fas fa-trash"></i></button>
 	</form>
 	
 	</div>
